@@ -1,5 +1,6 @@
 ﻿using Contracts.Models;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Models
 {
@@ -9,6 +10,9 @@ namespace Repository.Models
         : base(repositoryContext)
         {
         }
+
+        public async Task<IEnumerable<Transaction>> GetAllTransactionAsync(bool trackChanges) =>
+            await FindAll(trackChanges).ToListAsync();
     }
 
 }

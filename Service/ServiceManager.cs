@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
 using Contracts.Services;
 using Service.Contracts;
 using Service.Contracts.Models;
@@ -10,10 +11,10 @@ namespace Service
     {
         private readonly Lazy<ITranscationService> _transcationService;
         public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager
-        logger)
+        logger, IMapper mapper)
         {
             _transcationService = new Lazy<ITranscationService>(() => new
-            TranscationService(repositoryManager, logger));
+            TranscationService(repositoryManager, logger, mapper));
         }
         public ITranscationService TranscationService => _transcationService.Value;
 

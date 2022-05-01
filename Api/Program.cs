@@ -1,9 +1,18 @@
 using Api.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
+using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Load NLog Config;
+LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(),
+"/nlog.config"));
+
+
 var configuration = builder.Configuration;
+
+// Add AutoMapper to the container.
+builder.Services.AddAutoMapper(typeof(Program));
 
 // Add services to the container.
 builder.Services.ConfigureCors();

@@ -28,12 +28,15 @@ namespace Entities.Models
 
         [Required(ErrorMessage = "Status is a required field.")]
         public Status Status { get; set; }
+
         public ImportDetail? ImportDetail { get; set; }
     }
 
     public enum Status
     {
         Approved,
+        Failed,
+        Finished,
         Rejected,
         Done
     }
