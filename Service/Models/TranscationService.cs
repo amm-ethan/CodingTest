@@ -24,5 +24,23 @@ namespace Service.Models
             var transcations = await _repository.Transcation.GetAllTransactionAsync(trackChanges);
             return _mapper.Map<IEnumerable<TransactionDto>>(transcations);
         }
+
+        public async Task<IEnumerable<TransactionDto>> GetAllTransactionAsyncByCurrency(string currency, bool trackChanges)
+        {
+            var transcations = await _repository.Transcation.GetAllTransactionAsyncByCurrency(currency, trackChanges);
+            return _mapper.Map<IEnumerable<TransactionDto>>(transcations);
+        }
+
+        public async Task<IEnumerable<TransactionDto>> GetAllTransactionAsyncByDateRange(DateTimeDto dateTimeDto, bool trackChanges)
+        {
+            var transcations = await _repository.Transcation.GetAllTransactionAsyncByDateRange(dateTimeDto, trackChanges);
+            return _mapper.Map<IEnumerable<TransactionDto>>(transcations);
+        }
+
+        public async Task<IEnumerable<TransactionDto>> GetAllTransactionAsyncByStatus(string status, bool trackChanges)
+        {
+            var transcations = await _repository.Transcation.GetAllTransactionAsyncByStatus(status, trackChanges);
+            return _mapper.Map<IEnumerable<TransactionDto>>(transcations);
+        }
     }
 }
