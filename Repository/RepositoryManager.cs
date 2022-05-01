@@ -15,6 +15,6 @@ namespace Repository
             TranscationRepository(repositoryContext));
         }
         public ITranscationRepository Transcation => _transcationRepository.Value;
-        public void Save() => _repositoryContext.SaveChanges();
+        public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
     }
 }

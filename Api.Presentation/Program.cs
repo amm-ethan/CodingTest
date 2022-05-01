@@ -1,7 +1,6 @@
 using Api.Extensions;
 using Contracts.Services;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Mvc;
 using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,10 +24,6 @@ builder.Services.ConfigureServiceManager();
 
 builder.Services.ConfigureSqlContext(configuration);
 
-builder.Services.Configure<ApiBehaviorOptions>(options =>
-{
-    options.SuppressModelStateInvalidFilter = true;
-});
 
 builder.Services.AddControllers(config => {
     config.RespectBrowserAcceptHeader = true;
@@ -71,4 +66,3 @@ app.Run();
 //To Do : 1. Filter {Search} in Get
 //To Do : 2. Action Filter
 //To Do : 3. Validation and Log.
-//To Do : 4. ToDate FromDate Validation
