@@ -25,7 +25,10 @@ builder.Services.ConfigureServiceManager();
 builder.Services.ConfigureSqlContext(configuration);
 
 
-builder.Services.AddControllers()
+builder.Services.AddControllers(config => {
+    config.RespectBrowserAcceptHeader = true;
+    config.ReturnHttpNotAcceptable = true;
+}).AddXmlDataContractSerializerFormatters()
     .AddApplicationPart(typeof(Api.Presentation.AssemblyReference).Assembly);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -62,4 +65,4 @@ app.Run();
 
 //To Do : 1. Filter {Search} in Get
 //To Do : 2. Action Filter
-//To Do : 3. 
+//To Do : 3. Validation and Log.

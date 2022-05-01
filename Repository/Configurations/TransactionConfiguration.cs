@@ -8,6 +8,9 @@ namespace Repository.Configurations
     {
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {
+            builder.HasIndex(e => e.TransactionId)
+                .IsUnique();
+
             builder.Property(e => e.Status)
                 .HasConversion(
             v => v.ToString(),

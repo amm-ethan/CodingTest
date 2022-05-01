@@ -9,11 +9,11 @@ namespace Api
         public MappingProfile()
         {
             CreateMap<Transaction, TransactionDto>()
-                .ForCtorParam("Id",
+                .ForMember(c => c.Id,
                 opt => opt.MapFrom(x => x.TransactionId))
-                .ForCtorParam("Payment",
+                .ForMember(c => c.Payment,
                 opt => opt.MapFrom(x => string.Join(' ', x.Amount, x.CurrencyCode)))
-                .ForCtorParam("Status",
+                .ForMember(c => c.Status,
                 opt => opt.MapFrom(x => x.Status == Status.Approved ? "A"
                 : x.Status == Status.Failed || x.Status == Status.Rejected ? "R" : "D"
                 ));

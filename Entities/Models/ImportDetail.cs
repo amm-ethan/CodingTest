@@ -2,6 +2,7 @@
 
 namespace Entities.Models
 {
+    [Serializable]
     public class ImportDetail
     {
         [Key]

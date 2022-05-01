@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Shared.DataTransferObjects
 {
-    public class DateTimeDto
+    public record DateTimeDto
     {
         [Required]
-        public DateTime FromDate { get; set; }
+        public DateTime FromDate { get; init; }
 
         [Required]
-        public DateTime ToDate { get; set; }
+        public DateTime ToDate { get; init; }
     }
 }
