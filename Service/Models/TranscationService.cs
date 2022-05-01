@@ -3,6 +3,8 @@ using Contracts;
 using Contracts.Services;
 using Service.Contracts.Models;
 using Shared.DataTransferObjects;
+using Shared.RequestFeatures;
+using Shared.RequestFeatures.Models;
 
 namespace Service.Models
 {
@@ -19,27 +21,30 @@ namespace Service.Models
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TransactionDto>> GetAllTransactionAsync(bool trackChanges)
+        public async Task<(IEnumerable<TransactionDto> transcations, MetaData metaData)> GetAllTransactionsAsync(TransactionParameters transactionParameters, bool trackChanges)
         {
-            var transcations = await _repository.Transcation.GetAllTransactionAsync(trackChanges);
+            var transcations = await _repository.Transcation.GetAllTransactionsAsync(transactionParameters, trackChanges);
+            var transcationDto = _mapper.Map<IEnumerable<TransactionDto>>(transcations);
+            return (transcations: transcationDto, transcations.MetaData);
+
+
+        }
+
+        public async Task<IEnumerable<TransactionDto>> GetAllTransactionsAsyncByCurrency(string currency, bool trackChanges)
+        {
+            var transcations = await _repository.Transcation.GetAllTransactionsAsyncByCurrency(currency, trackChanges);
             return _mapper.Map<IEnumerable<TransactionDto>>(transcations);
         }
 
-        public async Task<IEnumerable<TransactionDto>> GetAllTransactionAsyncByCurrency(string currency, bool trackChanges)
+        public async Task<IEnumerable<TransactionDto>> GetAllTransactionsAsyncByDateRange(DateTime fromDate, DateTime toDate, bool trackChanges)
         {
-            var transcations = await _repository.Transcation.GetAllTransactionAsyncByCurrency(currency, trackChanges);
+            var transcations = await _repository.Transcation.GetAllTransactionsAsyncByDateRange(fromDate, toDate, trackChanges);
             return _mapper.Map<IEnumerable<TransactionDto>>(transcations);
         }
 
-        public async Task<IEnumerable<TransactionDto>> GetAllTransactionAsyncByDateRange(DateTimeDto dateTimeDto, bool trackChanges)
+        public async Task<IEnumerable<TransactionDto>> GetAllTransactionsAsyncByStatus(string status, bool trackChanges)
         {
-            var transcations = await _repository.Transcation.GetAllTransactionAsyncByDateRange(dateTimeDto, trackChanges);
-            return _mapper.Map<IEnumerable<TransactionDto>>(transcations);
-        }
-
-        public async Task<IEnumerable<TransactionDto>> GetAllTransactionAsyncByStatus(string status, bool trackChanges)
-        {
-            var transcations = await _repository.Transcation.GetAllTransactionAsyncByStatus(status, trackChanges);
+            var transcations = await _repository.Transcation.GetAllTransactionsAsyncByStatus(status, trackChanges);
             return _mapper.Map<IEnumerable<TransactionDto>>(transcations);
         }
     }
