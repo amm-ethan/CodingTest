@@ -29,6 +29,8 @@ namespace Entities.Models
         [Required(ErrorMessage = "Status is a required field.")]
         public Status Status { get; set; }
 
+        [ForeignKey(nameof(ImportDetail))]
+        public Guid ImportDetailGuid { get; set; }
         public ImportDetail? ImportDetail { get; set; }
     }
 

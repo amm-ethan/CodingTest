@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
@@ -8,11 +7,10 @@ namespace Entities.Models
         [Key]
         public Guid Guid { get; set; }
         public string? Filename { get; set; }
+        public byte[]? Detail { get; set; }
         public DateTime ImportedDate { get; set; } = DateTime.Now;
         public bool IsSuccess { get; set; } = false;
 
-        [ForeignKey(nameof(Transaction))]
-        public Guid TransactionGuid { get; set; }
-        public Transaction? Transaction { get; set; }
+        public ICollection<Transaction>? Transactions { get; set; }
     }
 }
