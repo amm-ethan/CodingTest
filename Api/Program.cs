@@ -1,4 +1,5 @@
 using Api.Extensions;
+using Api.Presentation.ActionFilters;
 using Contracts.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,9 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
 });
+
+builder.Services.AddScoped<ValidationFilterAttribute>();
+builder.Services.AddScoped<ObjectNullAttribute>();
 
 builder.Services.AddControllers(config => {
     config.RespectBrowserAcceptHeader = true;
@@ -68,7 +72,7 @@ app.MapControllers();
 
 app.Run();
 
-//To Do : 1. Filter {Search} in Get
-//To Do : 2. Action Filter
-//To Do : 3. Validation and Log.
-//To Do : 4. ToDate FromDate Validation
+//Todo : 1. Filter {Search} in Get
+//Todo : 2. Action Filter
+//Todo : 3. Validation and Log.
+//Todo : 4. ToDate FromDate Validation

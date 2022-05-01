@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Api.Presentation.ActionFilters;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 
@@ -19,6 +20,7 @@ namespace Api.Presentation.Controllers
         }
 
         [HttpGet("Currency/{currency}", Name = "GetAllTransactionByCurrency")]
+        [ServiceFilter(typeof(ObjectNullAttribute))]
         public async Task<IActionResult> GetAllTransactionByCurrency(string currency)
         {
             var transactions = await _service.TranscationService.GetAllTransactionAsyncByCurrency(currency, trackChanges: false);
@@ -26,6 +28,8 @@ namespace Api.Presentation.Controllers
         }
 
         [HttpGet("DateRange", Name = "GetAllTransaction")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        //Todo : Implement as Query?
         public async Task<IActionResult> GetAllTransactionByDate([FromBody] DateTimeDto dateTimeDto)
         {
             var transactions = await _service.TranscationService.GetAllTransactionAsyncByDateRange(dateTimeDto, trackChanges: false);
@@ -33,6 +37,7 @@ namespace Api.Presentation.Controllers
         }
 
         [HttpGet("{status}", Name = "GetAllTransactionByStatus")]
+        [ServiceFilter(typeof(ObjectNullAttribute))]
         public async Task<IActionResult> GetAllTransactionByStatus(string status)
         {
             var transactions = await _service.TranscationService.GetAllTransactionAsyncByStatus(status, trackChanges: false);
