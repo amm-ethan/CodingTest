@@ -1,4 +1,7 @@
-﻿namespace Api.Extensions
+﻿using Contracts.Services;
+using LoggerService;
+
+namespace Api.Extensions
 {
     public static class ServiceExtension
     {
@@ -13,5 +16,8 @@
         public static void ConfigureIISIntegration(this IServiceCollection services) =>
             services.Configure<IISOptions>(options =>
             { });
+
+        public static void ConfigureLoggerService(this IServiceCollection services) =>
+            services.AddSingleton<ILoggerManager, LoggerManager>();
     }
 }
