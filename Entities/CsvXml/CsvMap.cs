@@ -1,6 +1,6 @@
 ﻿using CsvHelper.Configuration;
 
-namespace Entities.CsvModel
+namespace Entities.CsvXml
 {
     public sealed class CsvMap : ClassMap<CsvTransaction>
     {

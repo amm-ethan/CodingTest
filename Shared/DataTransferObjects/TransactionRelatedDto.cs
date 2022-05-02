@@ -23,7 +23,6 @@ namespace Shared.DataTransferObjects
     {
         public string? Titile { get; set; } = "One or more validation errors occured";
         public List<TransactionSubError>? Details { get; set; }
-
         public override string ToString() => JsonConvert.SerializeObject(this);
     }
 
@@ -31,7 +30,6 @@ namespace Shared.DataTransferObjects
     {
         [JsonPropertyName("Position(row,column)")]
         public string? Position { get; set; }
-
         public string? Header { get; set; }
         public string? Value { get; set; }
         public string? Error { get; set; }

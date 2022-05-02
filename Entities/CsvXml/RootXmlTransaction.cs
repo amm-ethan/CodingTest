@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Entities.XmlModel
+namespace Entities.CsvXml
 {
     [XmlRoot(ElementName = "PaymentDetails")]
     public class PaymentDetails
