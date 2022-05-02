@@ -10,14 +10,6 @@ namespace Shared.DataTransferObjects
         public string? Status { get; init; }
     }
 
-    public class TransactionCreationDto
-    {
-        public string? TransactionId { get; set; }
-        public decimal Amount { get; set; }
-        public string? CurrencyCode { get; set; }
-        public DateTime TransactionDate { get; set; }
-        public string? Status { get; set; }
-    }
 
     public class TransactionErrorDto
     {
