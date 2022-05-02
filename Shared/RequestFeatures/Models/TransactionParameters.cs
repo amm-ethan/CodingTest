@@ -10,8 +10,5 @@
         public DateTime FromDate { get; init; }
         public DateTime ToDate { get; init; }
 
-        public bool ValidDateRange => FromDate.Date < ToDate.Date && FromDate.Date < DateTime.Today.Date && ToDate.Date < DateTime.Today.Date;
-
-
     }
 }

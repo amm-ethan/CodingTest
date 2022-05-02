@@ -8,7 +8,7 @@ namespace Entities.Models
         [Key]
         public Guid Guid { get; set; }
         public string? Filename { get; set; }
-        public byte[]? Detail { get; set; }
+        public byte[]? Content { get; set; }
         public DateTime ImportedDate { get; set; } = DateTime.Now;
         public bool IsSuccess { get; set; } = false;
 

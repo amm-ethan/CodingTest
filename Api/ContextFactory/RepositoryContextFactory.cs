@@ -13,8 +13,7 @@ namespace Api.ContextFactory
             .AddJsonFile("appsettings.json")
             .Build();
             var builder = new DbContextOptionsBuilder<RepositoryContext>()
-            .UseSqlServer(configuration.GetConnectionString("SqlConnection"),
-            b => b.MigrationsAssembly("Api"));
+            .UseSqlServer(configuration.GetConnectionString("SqlConnection"));
 
             return new RepositoryContext(builder.Options);
         }

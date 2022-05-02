@@ -4,8 +4,8 @@ namespace Contracts
 {
     public interface IRepositoryManager
     {
-        ITranscationRepository Transcation { get; }
-
+        ITransactionRepository Transaction { get; }
+        IImportDetailRepository ImportDetail { get; }
         Task SaveAsync();
     }
 }

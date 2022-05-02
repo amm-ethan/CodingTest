@@ -13,15 +13,24 @@ namespace Api.Presentation.Controllers
         private readonly IServiceManager _service;
         public TransactionController(IServiceManager service) => _service = service;
 
+        [HttpPost("import", Name = "ImportTranscations")]
+        public async Task<IActionResult> ImportTranscations()
+        {
+            throw new SizeBadRequestException();
+            var filesFromWeb = Request.Form.Files;
+            await _service.TranscationService.ImportTransactions(filesFromWeb[0]);
+
+            return Ok();
+        }
+
+        #region Get
+
         [HttpGet(Name = "GetAllTransactions")]
         public async Task<IActionResult> GetAllTransaction([FromQuery] TransactionParameters transactionParameters)
         {
-            if (!transactionParameters.ValidDateRange)
-                throw new IncorrectDateRangeBadRequestException();
 
             var result = await _service.TranscationService.GetAllTransactionsAsync(transactionParameters, trackChanges: false);
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(result.metaData));
-
             return Ok(result.transcations);
         }
 
@@ -35,8 +44,6 @@ namespace Api.Presentation.Controllers
         [HttpGet("by-date-range/{fromDate}-{toDate}", Name = "GetAllTransactionsByDateRange")]
         public async Task<IActionResult> GetAllTransactionByDateRange(DateTime fromDate, DateTime toDate)
         {
-            if (fromDate.Date > toDate.Date && fromDate.Date > DateTime.Today.Date && toDate.Date > DateTime.Today.Date)
-                throw new IncorrectDateRangeBadRequestException();
             var transactions = await _service.TranscationService.GetAllTransactionsAsyncByDateRange(fromDate, toDate, trackChanges: false);
             return Ok(transactions);
         }
@@ -47,6 +54,8 @@ namespace Api.Presentation.Controllers
             var transactions = await _service.TranscationService.GetAllTransactionsAsyncByStatus(status, trackChanges: false);
             return Ok(transactions);
         }
+
+        #endregion Get
     }
 
 }

@@ -2,6 +2,8 @@
 using Entities.ErrorModel;
 using Entities.Exceptions.BadRequest;
 using Microsoft.AspNetCore.Diagnostics;
+using Newtonsoft.Json;
+using Shared.DataTransferObjects;
 using System.Net;
 
 namespace Api.Extensions
@@ -25,11 +27,21 @@ namespace Api.Extensions
                             _ => StatusCodes.Status500InternalServerError
                         };
                         logger.LogError($"Something went wrong: {contextFeature.Error}");
-                        await context.Response.WriteAsync(new ErrorDetails()
+
+                        var objectToReturn = contextFeature.Error switch
                         {
-                            StatusCode = context.Response.StatusCode,
-                            Message = contextFeature.Error.Message,
-                        }.ToString());
+                            TranscationValidationBadRequestException => new ErrorDetails()
+                            {
+                                StatusCode = context.Response.StatusCode,
+                                Message = JsonConvert.DeserializeObject<TransactionErrorDto>(contextFeature.Error.Message)
+                            },
+                            _ => new ErrorDetails()
+                            {
+                                StatusCode = context.Response.StatusCode,
+                                Message = contextFeature.Error.Message,
+                            }
+                        };
+                        await context.Response.WriteAsync(objectToReturn.ToString());
                     }
                 });
             });

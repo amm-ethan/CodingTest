@@ -42,13 +42,16 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Migrate database on startup.
+app.MigrateDatabase();
+
 var logger = app.Services.GetRequiredService<ILoggerManager>();
 app.ConfigureExceptionHandler(logger);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
+    //app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -67,8 +70,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-//Todo : 1. Filter {Search} in Get
-//Todo : 2. Action Filter
-//Todo : 3. Validation and Log.
-//Todo : 4. ToDate FromDate Validation

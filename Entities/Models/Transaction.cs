@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 namespace Entities.Models
 {
     [Serializable]
+   
     public class Transaction
     {
         [Key]

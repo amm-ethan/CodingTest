@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Entities.CsvModel;
 using Entities.Models;
 using Shared.DataTransferObjects;
+using System.Globalization;
 
 namespace Api
 {
@@ -17,6 +19,18 @@ namespace Api
                 opt => opt.MapFrom(x => x.Status == Status.Approved ? "A"
                 : x.Status == Status.Failed || x.Status == Status.Rejected ? "R" : "D"
                 ));
+
+            CreateMap<CsvTransaction, Transaction>()
+                .ForMember(c => c.TransactionId,
+                opt => opt.MapFrom(x => x.TransactionId!.Trim().Replace("\"","")))
+                .ForMember(c => c.Amount,
+                opt => opt.MapFrom(x => decimal.Parse(x.Amount!.Trim().Replace("\"", "").Replace(",", ""))))
+                 .ForMember(c => c.CurrencyCode,
+                opt => opt.MapFrom(x => x.CurrencyCode!.Trim().Replace("\"", "")))
+                  .ForMember(c => c.TransactionDate,
+                opt => opt.MapFrom(x => DateTime.ParseExact(x.TransactionDate!.Trim().Replace("\"", ""), "dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture)))
+                   .ForMember(c => c.Status,
+                opt => opt.MapFrom(x => (Status)Enum.Parse(typeof(Status), x.Status!.Trim().Replace("\"", ""))));
         }
     }
 }

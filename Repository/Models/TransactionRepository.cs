@@ -7,9 +7,9 @@ using Shared.RequestFeatures.Models;
 
 namespace Repository.Models
 {
-    public class TranscationRepository : RepositoryBase<Transaction>, ITranscationRepository
+    public class TransactionRepository : RepositoryBase<Transaction>, ITransactionRepository
     {
-        public TranscationRepository(RepositoryContext repositoryContext)
+        public TransactionRepository(RepositoryContext repositoryContext)
         : base(repositoryContext)
         {
         }

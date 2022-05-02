@@ -33,10 +33,27 @@ namespace Api.Extensions
         public static void ConfigureServiceManager(this IServiceCollection services) =>
             services.AddScoped<IServiceManager, ServiceManager>();
 
-        public static void ConfigureSqlContext(this IServiceCollection services,
-            IConfiguration configuration) =>
+        public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
             services.AddDbContext<RepositoryContext>(opts =>
-            opts.UseSqlServer(configuration.GetConnectionString("SqlConnection")));
+            opts.UseSqlServer(configuration.GetConnectionString("SqlConnection"),
+            b => b.MigrationsAssembly("Api")));
+
+        public static IHost MigrateDatabase(this IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                using var appContext = scope.ServiceProvider.GetRequiredService<RepositoryContext>();
+                try
+                {
+                    appContext.Database.Migrate();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return host;
+        }
 
     }
 }
