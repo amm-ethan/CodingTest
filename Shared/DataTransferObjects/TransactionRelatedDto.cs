@@ -13,7 +13,7 @@ namespace Shared.DataTransferObjects
 
     public class TransactionErrorDto
     {
-        public string? Titile { get; set; } = "One or more validation errors occured";
+        public string? Title { get; set; } = "One or more validation errors occured";
         public List<TransactionSubError>? Details { get; set; }
         public override string ToString() => JsonConvert.SerializeObject(this);
     }
