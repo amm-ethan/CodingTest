@@ -1,8 +1,8 @@
 ﻿namespace Entities.Exceptions
 {
-    public abstract class InvalidFileException : InvalidOperationException
+    public class InvalidFileException : InvalidOperationException
     {
-        protected InvalidFileException()
+        public InvalidFileException()
         : base("Input File is invalid or empty")
         { }
     }

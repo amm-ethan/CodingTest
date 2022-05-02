@@ -4,19 +4,17 @@ using Contracts.Services;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Entities.CsvModel;
+using Entities.Exceptions;
 using Entities.Exceptions.BadRequest;
 using Entities.Models;
 using Entities.XmlModel;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using Service.Contracts.Models;
 using Service.Helpers;
 using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
 using Shared.RequestFeatures.Models;
-using System.Diagnostics;
 using System.Globalization;
-using System.Xml;
 using System.Xml.Serialization;
 
 namespace Service.Models
@@ -53,7 +51,7 @@ namespace Service.Models
                     cleanText = cleanText.Replace("“", "\"");
                     cleanText = cleanText.Replace("”", "\"");
                     if (string.IsNullOrEmpty(cleanText))
-                        throw new InvalidOperationException();
+                        throw new InvalidFileException();
 
                     if (fileType == "csv")
                     {
@@ -68,8 +66,9 @@ namespace Service.Models
                         var stringReader = new StringReader(cleanText);
                         XmlTransaction? overview = (XmlTransaction?)reader.Deserialize(stringReader!);
                         if(overview == null)
-                            throw new InvalidOperationException();
+                            throw new InvalidFileException();
 
+                        csvTransactionList = _mapper.Map<List<CsvTransaction>>(overview.Transaction);
                     }
 
                     var transcations = new List<Transaction>();
@@ -92,8 +91,8 @@ namespace Service.Models
                         Transactions = haveNoError ? transcations : null
                     };
 
-                    //_repository.ImportDetail.CreateImportDetail(importDetail);
-                    //await _repository.SaveAsync();
+                    _repository.ImportDetail.CreateImportDetail(importDetail);
+                    await _repository.SaveAsync();
 
                     if (!haveNoError)
                         throw new TranscationValidationBadRequestException(new() { Details = totalErrorList });

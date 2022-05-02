@@ -10,7 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(),
 "/nlog.config"));
 
-
 var configuration = builder.Configuration;
 
 // Add AutoMapper to the container.
@@ -43,7 +42,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Migrate database on startup.
-//app.MigrateDatabase();
+app.MigrateDatabase();
 
 var logger = app.Services.GetRequiredService<ILoggerManager>();
 app.ConfigureExceptionHandler(logger);
@@ -51,7 +50,7 @@ app.ConfigureExceptionHandler(logger);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    //app.UseDeveloperExceptionPage();
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
