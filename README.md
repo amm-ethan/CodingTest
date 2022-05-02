@@ -6,7 +6,7 @@ This is repo of Coding Test for 2P2C Company.
 - MSSQL Server
 
 # Design Pattern
-- Code-First Apporach and EF core 6.
+- Code-First Apporach + EF core 6.
 - Onion Architecture + Repository Pattern
 
 # Remark
