@@ -20,7 +20,6 @@ namespace Shared.DataTransferObjects
 
     public class TransactionSubError
     {
-        [JsonPropertyName("Position(row,column)")]
         public string? Position { get; set; }
         public string? Header { get; set; }
         public string? Value { get; set; }
