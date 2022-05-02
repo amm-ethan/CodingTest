@@ -1,7 +1,7 @@
 # Readme
 This is repo for Coding Test for 2P2C Company.
 
-# Prerequisite
+# Built With
 - .Net Core 6
 - MSSQL Server
 
@@ -20,14 +20,15 @@ Both files are under API Project.
   to import data from csv or xml files.
   
 - GET   api/transactions/
-  - to get transactions. this GET support Pagination,Searching,Flitering and Ordering. (Check Swagger for parameters)
-  - Date format must be in yyyy-MM-dd
+  - to get transactions. this GET support pagination, searching, flitering and ordering. (Check Swagger for parameters)
+  - date format must be in yyyy-MM-dd
   
 - GET   api/transactions/by-currency/{currency}
   - to get transactions by currency type.
  
 - GET   api/transactions/by-date-range/{fromDate}/{toDate}
-  - to get transactions by date range. Date format must be in yyyy-MM-dd
+  - to get transactions by date range. 
+  - date format must be in yyyy-MM-dd
   
 - GET   api/transactions/by-status/{status}
   - to get transactions by date range. This accept both short form and long forms. (Either A or Accepted is accepted)
