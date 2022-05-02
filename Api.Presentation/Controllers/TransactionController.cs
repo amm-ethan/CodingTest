@@ -1,4 +1,5 @@
 ﻿using Entities.Exceptions.BadRequest;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.RequestFeatures.Models;
@@ -16,7 +17,6 @@ namespace Api.Presentation.Controllers
         [HttpPost("import", Name = "ImportTranscations")]
         public async Task<IActionResult> ImportTranscations()
         {
-            throw new SizeBadRequestException();
             var filesFromWeb = Request.Form.Files;
             await _service.TranscationService.ImportTransactions(filesFromWeb[0]);
 

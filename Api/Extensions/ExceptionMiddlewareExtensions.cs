@@ -1,5 +1,6 @@
 ﻿using Contracts.Services;
 using Entities.ErrorModel;
+using Entities.Exceptions;
 using Entities.Exceptions.BadRequest;
 using Microsoft.AspNetCore.Diagnostics;
 using Newtonsoft.Json;
@@ -24,6 +25,8 @@ namespace Api.Extensions
                         context.Response.StatusCode = contextFeature.Error switch
                         {
                             BadRequestException => StatusCodes.Status400BadRequest,
+                            InvalidFileException => StatusCodes.Status400BadRequest,
+                            CsvHelper.MissingFieldException => StatusCodes.Status400BadRequest,
                             _ => StatusCodes.Status500InternalServerError
                         };
                         logger.LogError($"Something went wrong: {contextFeature.Error}");
@@ -34,6 +37,11 @@ namespace Api.Extensions
                             {
                                 StatusCode = context.Response.StatusCode,
                                 Message = JsonConvert.DeserializeObject<TransactionErrorDto>(contextFeature.Error.Message)
+                            },
+                            CsvHelper.MissingFieldException => new ErrorDetails()
+                            {
+                                StatusCode = context.Response.StatusCode,
+                                Message = "Input File is invalid or empty"
                             },
                             _ => new ErrorDetails()
                             {

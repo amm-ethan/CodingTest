@@ -43,7 +43,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Migrate database on startup.
-app.MigrateDatabase();
+//app.MigrateDatabase();
 
 var logger = app.Services.GetRequiredService<ILoggerManager>();
 app.ConfigureExceptionHandler(logger);

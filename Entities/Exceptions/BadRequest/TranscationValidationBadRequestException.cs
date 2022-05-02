@@ -3,7 +3,7 @@ using Shared.DataTransferObjects;
 
 namespace Entities.Exceptions.BadRequest
 {
-    public sealed class TranscationValidationBadRequestException : BadRequestException
+    public sealed class TranscationValidationBadRequestException : InvalidFileException
     {
         public TranscationValidationBadRequestException(TransactionErrorDto transactionError)
         : base(JsonConvert.SerializeObject(transactionError))

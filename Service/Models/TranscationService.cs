@@ -6,7 +6,9 @@ using CsvHelper.Configuration;
 using Entities.CsvModel;
 using Entities.Exceptions.BadRequest;
 using Entities.Models;
+using Entities.XmlModel;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Service.Contracts.Models;
 using Service.Helpers;
 using Shared.DataTransferObjects;
@@ -14,6 +16,8 @@ using Shared.RequestFeatures;
 using Shared.RequestFeatures.Models;
 using System.Diagnostics;
 using System.Globalization;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Service.Models
 {
@@ -44,22 +48,29 @@ namespace Service.Models
                 {
                     var content = memoryStream.ToArray();
                     var csvTransactionList = new List<CsvTransaction>();
+
+                    var cleanText = await file.ReadAsStringAsync();
+                    cleanText = cleanText.Replace("“", "\"");
+                    cleanText = cleanText.Replace("”", "\"");
+                    if (string.IsNullOrEmpty(cleanText))
+                        throw new InvalidOperationException();
+
                     if (fileType == "csv")
                     {
-                        var csvText = await file.ReadAsStringAsync();
-                        csvText = csvText.Replace("“", "\"");
-                        csvText = csvText.Replace("”", "\"");
-
                         var config = new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = ",", HasHeaderRecord = false, BadDataFound = null };
-                        using CsvReader csv = new(new StringReader(csvText), config);
+                        using CsvReader csv = new(new StringReader(cleanText), config);
                         csv.Context.RegisterClassMap<CsvMap>();
                         csvTransactionList = csv.GetRecords<CsvTransaction>().ToList();
                     }
                     else
-                    {
+                    { 
+                        var reader = new XmlSerializer(typeof(XmlTransaction));
+                        var stringReader = new StringReader(cleanText);
+                        XmlTransaction? overview = (XmlTransaction?)reader.Deserialize(stringReader!);
+                        if(overview == null)
+                            throw new InvalidOperationException();
 
                     }
-
 
                     var transcations = new List<Transaction>();
                     var totalErrorList = new List<TransactionSubError>();
@@ -80,13 +91,13 @@ namespace Service.Models
                         IsSuccess = haveNoError,
                         Transactions = haveNoError ? transcations : null
                     };
-                    _repository.ImportDetail.CreateImportDetail(importDetail);
-                    await _repository.SaveAsync();
+
+                    //_repository.ImportDetail.CreateImportDetail(importDetail);
+                    //await _repository.SaveAsync();
 
                     if (!haveNoError)
                         throw new TranscationValidationBadRequestException(new() { Details = totalErrorList });
 
-                    Debug.WriteLine(transcations.First().TransactionId);
                     return;
                 }
             }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Entities.Models;
+using Microsoft.AspNetCore.Http;
 using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
 using Shared.RequestFeatures.Models;
