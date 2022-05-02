@@ -6,6 +6,7 @@ namespace Contracts
     {
         ITransactionRepository Transaction { get; }
         IImportDetailRepository ImportDetail { get; }
+
         Task SaveAsync();
     }
 }

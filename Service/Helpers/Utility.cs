@@ -28,6 +28,7 @@ namespace Service.Helpers
             var errorList = new List<TransactionSubError>();
 
             #region TransactionId
+
             if (string.IsNullOrEmpty(record.TransactionId!.Trim().Replace("\"", "")))
             {
                 var error = new TransactionSubError() { Position = $"({index + 1},1)", Header = "Transaction Id", Value = record.TransactionId!.Trim().Replace("\"", ""), Error = "Value is empty" };
@@ -40,9 +41,11 @@ namespace Service.Helpers
                 logger.LogWarn($"Validation Error in File {filename}. {JsonConvert.SerializeObject(error)}");
                 errorList.Add(error);
             }
+
             #endregion TransactionId
 
             #region Amount
+
             if (string.IsNullOrEmpty(record.Amount!.Trim().Replace("\"", "")))
             {
                 var error = new TransactionSubError() { Position = $"({index + 1},2)", Header = "Amount", Value = record.Amount!.Trim().Replace("\"", ""), Error = "Value is empty" };
@@ -55,18 +58,22 @@ namespace Service.Helpers
                 logger.LogWarn($"Validation Error in File {filename}. {JsonConvert.SerializeObject(error)}");
                 errorList.Add(error);
             }
+
             #endregion Amount
 
             #region CurrentCode
+
             if (string.IsNullOrEmpty(record.CurrencyCode!.Trim().Replace("\"", "")))
             {
                 var error = new TransactionSubError() { Position = $"({index + 1},3)", Header = "Currency Code", Value = record.CurrencyCode!.Trim().Replace("\"", ""), Error = "Value is empty" };
                 logger.LogWarn($"Validation Error in File {filename}. {JsonConvert.SerializeObject(error)}");
                 errorList.Add(error);
             }
-            #endregion CurrencyCode
+
+            #endregion CurrentCode
 
             #region Transcation Date
+
             if (string.IsNullOrEmpty(record.TransactionDate!.Trim().Replace("\"", "")))
             {
                 var error = new TransactionSubError() { Position = $"({index + 1},4)", Header = "Transaction Date", Value = record.TransactionDate!.Trim().Replace("\"", ""), Error = "Value is empty" };
@@ -79,9 +86,11 @@ namespace Service.Helpers
                 logger.LogWarn($"Validation Error in File {filename}. {JsonConvert.SerializeObject(error)}");
                 errorList.Add(error);
             }
+
             #endregion Transcation Date
 
             #region Status
+
             if (string.IsNullOrEmpty(record.Status!.Trim().Replace("\"", "")))
             {
                 var error = new TransactionSubError() { Position = $"({index + 1},5)", Header = "Status", Value = record.Status!.Trim().Replace("\"", ""), Error = "Value is empty" };
@@ -94,6 +103,7 @@ namespace Service.Helpers
                 logger.LogWarn($"Validation Error in File {filename}. {JsonConvert.SerializeObject(error)}");
                 errorList.Add(error);
             }
+
             #endregion Status
 
             if (errorList.Count > 0)
@@ -107,6 +117,7 @@ namespace Service.Helpers
             var errorList = new List<TransactionSubError>();
 
             #region TransactionId
+
             if (string.IsNullOrEmpty(record.Id!.Trim().Replace("\"", "")))
             {
                 var error = new TransactionSubError() { Position = $"({index + 1},0)", Header = "Transaction Id", Value = record.Id!.Trim().Replace("\"", ""), Error = "Value is empty" };
@@ -119,9 +130,11 @@ namespace Service.Helpers
                 logger.LogWarn($"Validation Error in File {filename}. {JsonConvert.SerializeObject(error)}");
                 errorList.Add(error);
             }
+
             #endregion TransactionId
 
             #region Amount
+
             if (string.IsNullOrEmpty(record.PaymentDetails!.Amount!.Trim().Replace("\"", "")))
             {
                 var error = new TransactionSubError() { Position = $"({index + 1},0)", Header = "Amount", Value = record.PaymentDetails!.Amount!.Trim().Replace("\"", ""), Error = "Value is empty" };
@@ -134,18 +147,22 @@ namespace Service.Helpers
                 logger.LogWarn($"Validation Error in File {filename}. {JsonConvert.SerializeObject(error)}");
                 errorList.Add(error);
             }
+
             #endregion Amount
 
             #region CurrentCode
+
             if (string.IsNullOrEmpty(record.PaymentDetails!.CurrencyCode!.Trim().Replace("\"", "")))
             {
                 var error = new TransactionSubError() { Position = $"({index + 1},0)", Header = "Currency Code", Value = record.PaymentDetails!.CurrencyCode!.Trim().Replace("\"", ""), Error = "Value is empty" };
                 logger.LogWarn($"Validation Error in File {filename}. {JsonConvert.SerializeObject(error)}");
                 errorList.Add(error);
             }
-            #endregion CurrencyCode
+
+            #endregion CurrentCode
 
             #region Transcation Date
+
             if (string.IsNullOrEmpty(record.TransactionDate!.Trim().Replace("\"", "")))
             {
                 var error = new TransactionSubError() { Position = $"({index + 1},0)", Header = "Transaction Date", Value = record.TransactionDate!.Trim().Replace("\"", ""), Error = "Value is empty" };
@@ -158,9 +175,11 @@ namespace Service.Helpers
                 logger.LogWarn($"Validation Error in File {filename}. {JsonConvert.SerializeObject(error)}");
                 errorList.Add(error);
             }
+
             #endregion Transcation Date
 
             #region Status
+
             if (string.IsNullOrEmpty(record.Status!.Trim().Replace("\"", "")))
             {
                 var error = new TransactionSubError() { Position = $"({index + 1},0)", Header = "Status", Value = record.Status!.Trim().Replace("\"", ""), Error = "Value is empty" };
@@ -173,6 +192,7 @@ namespace Service.Helpers
                 logger.LogWarn($"Validation Error in File {filename}. {JsonConvert.SerializeObject(error)}");
                 errorList.Add(error);
             }
+
             #endregion Status
 
             if (errorList.Count > 0)

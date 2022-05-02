@@ -25,6 +25,7 @@ namespace Service.Models
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
         private readonly IMapper _mapper;
+
         public TranscationService(IRepositoryManager repository, ILoggerManager
         logger, IMapper mapper)
         {
@@ -32,6 +33,7 @@ namespace Service.Models
             _logger = logger;
             _mapper = mapper;
         }
+
         public async Task ImportTransactions(IFormFile file)
         {
             var filename = file.FileName;
@@ -87,7 +89,6 @@ namespace Service.Models
                         }
                     }
 
-
                     #region Search for duplicate Transaction Id in current file
 
                     var duplicates = transcations.Select(c => c.TransactionId).GroupBy(c => c).SelectMany(c => c.Skip(1));
@@ -99,7 +100,7 @@ namespace Service.Models
                             totalErrorList.Add(error);
                         }
 
-                    #endregion Search for duplicate Transcation Id in current file
+                    #endregion Search for duplicate Transaction Id in current file
 
                     #region Search for duplicate Transcation Id in Database
 
@@ -160,8 +161,5 @@ namespace Service.Models
             var transcations = await _repository.Transaction.GetAllTransactionsAsyncByStatus(status, trackChanges);
             return _mapper.Map<IEnumerable<TransactionDto>>(transcations);
         }
-
-
-
     }
 }

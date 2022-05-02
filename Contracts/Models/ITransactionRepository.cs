@@ -7,9 +7,13 @@ namespace Contracts.Models
     public interface ITransactionRepository
     {
         Task<bool> IsTranscationIdExists(string transactionId);
-        Task<PagedList<Transaction>> GetAllTransactionsAsync(TransactionParameters transactionParameters,bool trackChanges);
+
+        Task<PagedList<Transaction>> GetAllTransactionsAsync(TransactionParameters transactionParameters, bool trackChanges);
+
         Task<IEnumerable<Transaction>> GetAllTransactionsAsyncByCurrency(string currency, bool trackChanges);
+
         Task<IEnumerable<Transaction>> GetAllTransactionsAsyncByDateRange(DateTime fromDate, DateTime toDate, bool trackChanges);
-        Task<IEnumerable<Transaction>> GetAllTransactionsAsyncByStatus(string status,bool trackChanges);
+
+        Task<IEnumerable<Transaction>> GetAllTransactionsAsyncByStatus(string status, bool trackChanges);
     }
 }

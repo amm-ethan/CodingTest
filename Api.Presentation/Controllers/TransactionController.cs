@@ -1,6 +1,4 @@
-﻿using Entities.Exceptions.BadRequest;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.RequestFeatures.Models;
 using System.Text.Json;
@@ -12,6 +10,7 @@ namespace Api.Presentation.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly IServiceManager _service;
+
         public TransactionController(IServiceManager service) => _service = service;
 
         [HttpPost("import", Name = "ImportTranscations")]
@@ -28,7 +27,6 @@ namespace Api.Presentation.Controllers
         [HttpGet(Name = "GetAllTransactions")]
         public async Task<IActionResult> GetAllTransaction([FromQuery] TransactionParameters transactionParameters)
         {
-
             var (transcations, metaData) = await _service.TranscationService.GetAllTransactionsAsync(transactionParameters, trackChanges: false);
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
             return Ok(transcations);
@@ -57,5 +55,4 @@ namespace Api.Presentation.Controllers
 
         #endregion Get
     }
-
 }

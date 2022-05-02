@@ -9,6 +9,5 @@
         public string? OrderBy { get; set; }
         public DateTime FromDate { get; init; }
         public DateTime ToDate { get; init; }
-
     }
 }

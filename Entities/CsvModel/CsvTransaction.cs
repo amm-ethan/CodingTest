@@ -1,4 +1,5 @@
 ﻿using CsvHelper.Configuration.Attributes;
+
 namespace Entities.CsvModel
 {
     public class CsvTransaction

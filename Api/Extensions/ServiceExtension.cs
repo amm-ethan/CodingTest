@@ -54,6 +54,5 @@ namespace Api.Extensions
             }
             return host;
         }
-
     }
 }

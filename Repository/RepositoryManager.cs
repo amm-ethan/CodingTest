@@ -9,6 +9,7 @@ namespace Repository
         private readonly RepositoryContext _repositoryContext;
         private readonly Lazy<ITransactionRepository> _transactionRepository;
         private readonly Lazy<IImportDetailRepository> _importDetailRepository;
+
         public RepositoryManager(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
@@ -17,6 +18,7 @@ namespace Repository
             _importDetailRepository = new Lazy<IImportDetailRepository>(() => new
            ImportDetailRepository(repositoryContext));
         }
+
         public ITransactionRepository Transaction => _transactionRepository.Value;
 
         public IImportDetailRepository ImportDetail => _importDetailRepository.Value;

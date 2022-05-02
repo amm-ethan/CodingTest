@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Repository.Extensions;
 using Shared.RequestFeatures;
 using Shared.RequestFeatures.Models;
-using System.Diagnostics;
 
 namespace Repository.Models
 {
@@ -29,10 +28,8 @@ namespace Repository.Models
             return PagedList<Transaction>.ToPagedList(transcations, transactionParameters.PageNumber, transactionParameters.PageSize);
         }
 
-
         public async Task<IEnumerable<Transaction>> GetAllTransactionsAsyncByCurrency(string currency, bool trackChanges) =>
             await FindByCondition(c => c.CurrencyCode!.ToLower().Equals(currency.ToLower()), trackChanges).OrderBy(c => c.TransactionId).ToListAsync();
-
 
         public async Task<IEnumerable<Transaction>> GetAllTransactionsAsyncByDateRange(DateTime fromDate, DateTime toDate, bool trackChanges)
         {
@@ -45,7 +42,6 @@ namespace Repository.Models
             else
                 return await FindByCondition(doc => doc.TransactionDate.Date >= fromDate.Date && doc.TransactionDate.Date <= toDate.Date, trackChanges).OrderBy(c => c.TransactionId).ToListAsync();
         }
-
 
         public async Task<IEnumerable<Transaction>> GetAllTransactionsAsyncByStatus(string status, bool trackChanges)
         {

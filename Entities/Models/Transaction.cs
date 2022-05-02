@@ -5,7 +5,6 @@ using System.Text.Json.Serialization;
 namespace Entities.Models
 {
     [Serializable]
-   
     public class Transaction
     {
         [Key]
@@ -33,6 +32,7 @@ namespace Entities.Models
 
         [ForeignKey(nameof(ImportDetail))]
         public Guid ImportDetailGuid { get; set; }
+
         public ImportDetail? ImportDetail { get; set; }
     }
 

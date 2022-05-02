@@ -42,6 +42,7 @@ namespace Repository.Extensions
             else
                 return transactions.Where(c => c.Status.Equals(status));
         }
+
         public static IQueryable<Transaction> Search(this IQueryable<Transaction> transactions, string? searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
