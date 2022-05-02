@@ -1,10 +1,10 @@
 ﻿using Contracts.Services;
-using Entities.ErrorModel;
 using Entities.Exceptions;
 using Entities.Exceptions.BadRequest;
 using Microsoft.AspNetCore.Diagnostics;
 using Newtonsoft.Json;
 using Shared.DataTransferObjects;
+using Shared.ErrorModel;
 using System.Net;
 
 namespace Api.Extensions
