@@ -41,10 +41,10 @@ namespace Api.Presentation.Controllers
             return Ok(transactions);
         }
 
-        [HttpGet("by-date-range/{fromDate}-{toDate}", Name = "GetAllTransactionsByDateRange")]
-        public async Task<IActionResult> GetAllTransactionByDateRange(DateTime fromDate, DateTime toDate)
+        [HttpGet("by-date-range/{fromDate}/{toDate}", Name = "GetAllTransactionsByDateRange")]
+        public async Task<IActionResult> GetAllTransactionByDateRange(string fromDate, string toDate)
         {
-            var transactions = await _service.TranscationService.GetAllTransactionsAsyncByDateRange(fromDate, toDate, trackChanges: false);
+            var transactions = await _service.TranscationService.GetAllTransactionsAsyncByDateRange(DateTime.Parse(fromDate), DateTime.Parse(toDate), trackChanges: false);
             return Ok(transactions);
         }
 
