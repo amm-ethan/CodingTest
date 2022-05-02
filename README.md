@@ -6,14 +6,16 @@ This is repo of Coding Test for 2P2C Company.
 - MSSQL Server
 
 # Design Pattern
-This application use Code-First Apporach and EF core 6.
+- Code-First Apporach and EF core 6.
+- Onion Architecture + Repository Pattern
+
+# Remark
 No database query is required and the database will be created automatically on startup.
-Onion Architecture + Repository Pattern is used for better dependency flows, better testing and clean and readable folder structure.
 
 # Todo before running
-Tester need to change SqlConnection in appsettings.json.
-ASPNETCORE_ENVIRONMENT to "Production" in Properties/launchSettings.json. (Optional. This will disable Swagger UI)
-Both files are under API Project.
+- Tester need to change SqlConnection in appsettings.json.
+- ASPNETCORE_ENVIRONMENT to "Production" in Properties/launchSettings.json. (Optional. This will disable Swagger UI)
+  - Both files are under API Project.
 
 # Controller End Point.
 - POST  api/transactions/import
