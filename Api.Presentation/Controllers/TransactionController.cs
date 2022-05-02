@@ -29,9 +29,9 @@ namespace Api.Presentation.Controllers
         public async Task<IActionResult> GetAllTransaction([FromQuery] TransactionParameters transactionParameters)
         {
 
-            var result = await _service.TranscationService.GetAllTransactionsAsync(transactionParameters, trackChanges: false);
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(result.metaData));
-            return Ok(result.transcations);
+            var (transcations, metaData) = await _service.TranscationService.GetAllTransactionsAsync(transactionParameters, trackChanges: false);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
+            return Ok(transcations);
         }
 
         [HttpGet("by-currency/{currency}", Name = "GetAllTransactionsByCurrency")]
