@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using Entities.CsvModel;
+using Entities.CsvXml;
 using Entities.Models;
-using Entities.XmlModel;
 using Shared.DataTransferObjects;
 using System.Globalization;
 

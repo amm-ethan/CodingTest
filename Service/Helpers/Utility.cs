@@ -1,7 +1,6 @@
 ﻿using Contracts.Services;
-using Entities.CsvModel;
+using Entities.CsvXml;
 using Entities.Models;
-using Entities.XmlModel;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Shared.DataTransferObjects;
