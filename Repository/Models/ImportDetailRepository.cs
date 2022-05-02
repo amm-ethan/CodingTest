@@ -10,7 +10,6 @@ namespace Repository.Models
         {
         }
 
-        public void CreateImportDetail(ImportDetail importDetail) =>
-            Create(importDetail);
+        public void CreateImportDetail(ImportDetail importDetail) =>Create(importDetail);
     }
 }

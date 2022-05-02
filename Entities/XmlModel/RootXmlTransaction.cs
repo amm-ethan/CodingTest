@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace Entities.XmlModel
 {
@@ -17,7 +12,7 @@ namespace Entities.XmlModel
 	}
 
 	[XmlRoot(ElementName = "Transaction")]
-	public class TransactionXml
+	public class XmlTransaction
 	{
 		[XmlElement(ElementName = "TransactionDate")]
 		public string? TransactionDate { get; set; }
@@ -30,9 +25,9 @@ namespace Entities.XmlModel
 	}
 
 	[XmlRoot(ElementName = "Transactions")]
-	public class XmlTransaction
+	public class RootXmlTransaction
 	{
 		[XmlElement(ElementName = "Transaction")]
-		public List<TransactionXml>? Transaction { get; set; }
+		public List<XmlTransaction>? Transaction { get; set; }
 	}
 }

@@ -26,6 +26,7 @@ namespace Api.Extensions
                         {
                             BadRequestException => StatusCodes.Status400BadRequest,
                             InvalidFileException => StatusCodes.Status400BadRequest,
+                            InvalidOperationException => StatusCodes.Status400BadRequest,
                             CsvHelper.MissingFieldException => StatusCodes.Status400BadRequest,
                             _ => StatusCodes.Status500InternalServerError
                         };
@@ -37,6 +38,11 @@ namespace Api.Extensions
                             {
                                 StatusCode = context.Response.StatusCode,
                                 Message = JsonConvert.DeserializeObject<TransactionErrorDto>(contextFeature.Error.Message)
+                            },
+                            InvalidOperationException => new ErrorDetails()
+                            {
+                                StatusCode = context.Response.StatusCode,
+                                Message = "Input File is invalid or empty"
                             },
                             CsvHelper.MissingFieldException => new ErrorDetails()
                             {

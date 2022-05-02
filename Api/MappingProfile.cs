@@ -23,7 +23,7 @@ namespace Api
 
             CreateMap<CsvTransaction, Transaction>()
                 .ForMember(c => c.TransactionId,
-                opt => opt.MapFrom(x => x.TransactionId!.Trim().Replace("\"","")))
+                opt => opt.MapFrom(x => x.TransactionId!.Trim().Replace("\"", "")))
                 .ForMember(c => c.Amount,
                 opt => opt.MapFrom(x => decimal.Parse(x.Amount!.Trim().Replace("\"", "").Replace(",", ""))))
                  .ForMember(c => c.CurrencyCode,
@@ -33,17 +33,17 @@ namespace Api
                    .ForMember(c => c.Status,
                 opt => opt.MapFrom(x => (Status)Enum.Parse(typeof(Status), x.Status!.Trim().Replace("\"", ""))));
 
-            CreateMap<TransactionXml, CsvTransaction>()
+            CreateMap<XmlTransaction, Transaction>()
                 .ForMember(c => c.TransactionId,
                 opt => opt.MapFrom(x => x.Id!.Trim().Replace("\"", "")))
                 .ForMember(c => c.Amount,
-                opt => opt.MapFrom(x => x.PaymentDetails!.Amount!.Trim().Replace("\"", "")))
-                .ForMember(c => c.CurrencyCode,
+                opt => opt.MapFrom(x => decimal.Parse(x.PaymentDetails!.Amount!.Trim().Replace("\"", "").Replace(",", ""))))
+                 .ForMember(c => c.CurrencyCode,
                 opt => opt.MapFrom(x => x.PaymentDetails!.CurrencyCode!.Trim().Replace("\"", "")))
-                .ForMember(c => c.TransactionDate,
-                opt => opt.MapFrom(x => x.TransactionDate!.Trim().Replace("\"", "")))
-                .ForMember(c => c.Status,
-                opt => opt.MapFrom(x => x.Status!.Trim().Replace("\"", ""))).ReverseMap();
+                  .ForMember(c => c.TransactionDate,
+                opt => opt.MapFrom(x => DateTime.ParseExact(x.TransactionDate!.Trim().Replace("\"", ""), "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture)))
+                   .ForMember(c => c.Status,
+                opt => opt.MapFrom(x => (Status)Enum.Parse(typeof(Status), x.Status!.Trim().Replace("\"", ""))));
         }
     }
 }

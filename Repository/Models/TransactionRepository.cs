@@ -14,6 +14,8 @@ namespace Repository.Models
         {
         }
 
+        public async Task<bool> IsTranscationIdExists(string transactionId) => await FindByCondition(c => c.TransactionId.ToLower().Equals(transactionId.ToLower()), false).SingleOrDefaultAsync() != null;
+
         public async Task<PagedList<Transaction>> GetAllTransactionsAsync(TransactionParameters transactionParameters, bool trackChanges)
         {
             var transcations = await FindAll(trackChanges)
@@ -31,7 +33,7 @@ namespace Repository.Models
             await FindByCondition(c => c.CurrencyCode!.ToLower().Equals(currency.ToLower()), trackChanges).OrderBy(c => c.TransactionId).ToListAsync();
 
 
-        public async Task<IEnumerable<Transaction>> GetAllTransactionsAsyncByDateRange(DateTime fromDate,DateTime toDate, bool trackChanges)
+        public async Task<IEnumerable<Transaction>> GetAllTransactionsAsyncByDateRange(DateTime fromDate, DateTime toDate, bool trackChanges)
         {
             if (fromDate == default && toDate == default)
                 return await FindAll(trackChanges).OrderBy(c => c.TransactionId).ToListAsync();
