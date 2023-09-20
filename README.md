@@ -1,5 +1,5 @@
 # Readme
-This is repo of Coding Test (API) for 2P2C Company.
+This is repo of Coding Test (API).
 
 # Built With
 - .Net Core 6
